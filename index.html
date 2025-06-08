@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>German Gender Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Main Menu Screen -->
+        <div id="main-menu" class="screen active">
+            <h1>🇩🇪 German Gender Game</h1>
+            <p>Practice der, die, das with German nouns!</p>
+
+            <div class="category-grid">
+                <button class="category-btn" data-category="all">
+                    <span class="emoji">🎯</span>
+                    <span class="text">All Categories</span>
+                </button>
+                <button class="category-btn" data-category="food">
+                    <span class="emoji">🍕</span>
+                    <span class="text">Food</span>
+                </button>
+                <button class="category-btn" data-category="technology">
+                    <span class="emoji">💻</span>
+                    <span class="text">Technology</span>
+                </button>
+                <button class="category-btn" data-category="animals">
+                    <span class="emoji">🐕</span>
+                    <span class="text">Animals</span>
+                </button>
+                <button class="category-btn" data-category="transport">
+                    <span class="emoji">🚗</span>
+                    <span class="text">Transport</span>
+                </button>
+                <button class="category-btn" data-category="home">
+                    <span class="emoji">🏠</span>
+                    <span class="text">Home</span>
+                </button>
+                <button class="category-btn" data-category="nature">
+                    <span class="emoji">🌳</span>
+                    <span class="text">Nature</span>
+                </button>
+                <button class="category-btn" data-category="clothing">
+                    <span class="emoji">👕</span>
+                    <span class="text">Clothing</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <div class="score-info">
+                    <span id="current-question">1</span> / 10
+                    <span class="separator">|</span>
+                    Score: <span id="current-score">0</span>
+                </div>
+            </div>
+
+            <div class="word-display">
+                <div class="word-image">
+                    <span id="word-emoji">🚗</span>
+                </div>
+                <div class="word-info">
+                    <h2 id="word-name">Auto</h2>
+                    <p id="word-translation">car</p>
+                </div>
+            </div>
+
+            <div class="gender-options">
+                <button class="gender-btn" data-gender="der">
+                    <span class="article">der</span>
+                    <span class="description">masculine</span>
+                </button>
+                <button class="gender-btn" data-gender="die">
+                    <span class="article">die</span>
+                    <span class="description">feminine</span>
+                </button>
+                <button class="gender-btn" data-gender="das">
+                    <span class="article">das</span>
+                    <span class="description">neuter</span>
+                </button>
+            </div>
+
+            <div id="feedback" class="feedback hidden">
+                <div class="feedback-content">
+                    <span id="feedback-icon">✅</span>
+                    <span id="feedback-text">Correct!</span>
+                    <div id="correct-answer"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="screen">
+            <div class="results-content">
+                <h2>🎉 Quiz Complete!</h2>
+                <div class="final-score">
+                    <span id="final-score">8</span> / 10
+                </div>
+                <div class="score-message" id="score-message"></div>
+
+                <div class="results-actions">
+                    <button id="play-again-btn" class="action-btn primary">
+                        Play Again
+                    </button>
+                    <button id="main-menu-btn" class="action-btn secondary">
+                        Main Menu
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
