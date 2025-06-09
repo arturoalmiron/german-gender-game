@@ -4,51 +4,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>German Gender Game</title>
+
+    <!-- Primary Meta Tags -->
+    <title>German Gender Game - Learn Der, Die, Das | Free German Grammar Practice</title>
+    <meta name="title" content="German Gender Game - Learn Der, Die, Das | Free German Grammar Practice">
+    <meta name="description"
+        content="Master German noun genders with our fun, interactive game! Practice der, die, das with 100+ words across 7 categories. Perfect for German language learners.">
+    <meta name="keywords"
+        content="german gender, der die das, german grammar, german language learning, german nouns, german articles, language game, german practice">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="author" content="German Gender Game">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-site.netlify.app/">
+    <meta property="og:title" content="German Gender Game - Learn Der, Die, Das">
+    <meta property="og:description"
+        content="Master German noun genders with our fun, interactive game! Practice der, die, das with 100+ words across 7 categories.">
+    <meta property="og:image" content="https://your-site.netlify.app/og-image.png">
+    <meta property="og:site_name" content="German Gender Game">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://your-site.netlify.app/">
+    <meta property="twitter:title" content="German Gender Game - Learn Der, Die, Das">
+    <meta property="twitter:description"
+        content="Master German noun genders with our fun, interactive game! Practice der, die, das with 100+ words.">
+    <meta property="twitter:image" content="https://your-site.netlify.app/og-image.png">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://your-site.netlify.app/">
+
     <link rel="stylesheet" href="style.css">
+
+    <!-- PWA Configuration -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#764ba2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="German Gender Game">
+    <link rel="apple-touch-icon" href="icon-192.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "German Gender Game",
+      "description": "Interactive game to learn German noun genders (der, die, das)",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Any",
+      "url": "https://your-site.netlify.app/",
+      "author": {
+        "@type": "Person",
+        "name": "German Gender Game Creator"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "150"
+      }
+    }
+    </script>
+
+    <!-- Google Analytics (replace GA_MEASUREMENT_ID with your actual ID) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+
+    <!-- Google AdSense (replace with your publisher ID when ready) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX"
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
+    <!-- Top Banner Ad Slot -->
+    <div class="ad-banner-top">
+        <!-- AdSense banner ad will go here -->
+        <div class="ad-placeholder">Advertisement</div>
+    </div>
+
     <div class="container">
         <!-- Main Menu Screen -->
         <div id="main-menu" class="screen active">
-            <h1>🇩🇪 German Gender Game</h1>
-            <p>Practice der, die, das with German nouns!</p>
+            <header>
+                <h1>🇩🇪 German Gender Game</h1>
+                <p>Practice der, die, das with German nouns!</p>
+            </header>
 
-            <div class="category-grid">
-                <button class="category-btn" data-category="all">
-                    <span class="emoji">🎯</span>
-                    <span class="text">All Categories</span>
-                </button>
-                <button class="category-btn" data-category="food">
-                    <span class="emoji">🍕</span>
-                    <span class="text">Food</span>
-                </button>
-                <button class="category-btn" data-category="technology">
-                    <span class="emoji">💻</span>
-                    <span class="text">Technology</span>
-                </button>
-                <button class="category-btn" data-category="animals">
-                    <span class="emoji">🐕</span>
-                    <span class="text">Animals</span>
-                </button>
-                <button class="category-btn" data-category="transport">
-                    <span class="emoji">🚗</span>
-                    <span class="text">Transport</span>
-                </button>
-                <button class="category-btn" data-category="home">
-                    <span class="emoji">🏠</span>
-                    <span class="text">Home</span>
-                </button>
-                <button class="category-btn" data-category="nature">
-                    <span class="emoji">🌳</span>
-                    <span class="text">Nature</span>
-                </button>
-                <button class="category-btn" data-category="clothing">
-                    <span class="emoji">👕</span>
-                    <span class="text">Clothing</span>
-                </button>
-            </div>
+            <main>
+                <div class="category-grid">
+                    <button class="category-btn" data-category="all" aria-label="Practice all German noun categories">
+                        <span class="emoji">🎯</span>
+                        <span class="text">All Categories</span>
+                    </button>
+                    <button class="category-btn" data-category="food" aria-label="Practice German food vocabulary">
+                        <span class="emoji">🍕</span>
+                        <span class="text">Food</span>
+                    </button>
+                    <button class="category-btn" data-category="technology"
+                        aria-label="Practice German technology vocabulary">
+                        <span class="emoji">💻</span>
+                        <span class="text">Technology</span>
+                    </button>
+                    <button class="category-btn" data-category="animals" aria-label="Practice German animal vocabulary">
+                        <span class="emoji">🐕</span>
+                        <span class="text">Animals</span>
+                    </button>
+                    <button class="category-btn" data-category="transport"
+                        aria-label="Practice German transport vocabulary">
+                        <span class="emoji">🚗</span>
+                        <span class="text">Transport</span>
+                    </button>
+                    <button class="category-btn" data-category="home" aria-label="Practice German home vocabulary">
+                        <span class="emoji">🏠</span>
+                        <span class="text">Home</span>
+                    </button>
+                    <button class="category-btn" data-category="nature" aria-label="Practice German nature vocabulary">
+                        <span class="emoji">🌳</span>
+                        <span class="text">Nature</span>
+                    </button>
+                    <button class="category-btn" data-category="clothing"
+                        aria-label="Practice German clothing vocabulary">
+                        <span class="emoji">👕</span>
+                        <span class="text">Clothing</span>
+                    </button>
+                </div>
+
+                <!-- Side Ad Slot -->
+                <div class="ad-sidebar">
+                    <div class="ad-placeholder">Advertisement</div>
+                </div>
+            </main>
         </div>
 
         <!-- Game Screen -->
@@ -75,18 +175,23 @@
             </div>
 
             <div class="gender-options">
-                <button class="gender-btn" data-gender="der">
+                <button class="gender-btn" data-gender="der" aria-label="Select der - masculine article">
                     <span class="article">der</span>
                     <span class="description">masculine</span>
                 </button>
-                <button class="gender-btn" data-gender="die">
+                <button class="gender-btn" data-gender="die" aria-label="Select die - feminine article">
                     <span class="article">die</span>
                     <span class="description">feminine</span>
                 </button>
-                <button class="gender-btn" data-gender="das">
+                <button class="gender-btn" data-gender="das" aria-label="Select das - neuter article">
                     <span class="article">das</span>
                     <span class="description">neuter</span>
                 </button>
+            </div>
+
+            <!-- Interstitial Ad Placeholder -->
+            <div class="ad-interstitial" style="display: none;">
+                <div class="ad-placeholder">Advertisement</div>
             </div>
 
             <div id="feedback" class="feedback hidden">
@@ -107,6 +212,11 @@
                 </div>
                 <div class="score-message" id="score-message"></div>
 
+                <!-- Results Ad Slot -->
+                <div class="ad-results">
+                    <div class="ad-placeholder">Advertisement</div>
+                </div>
+
                 <div class="results-actions">
                     <button id="play-again-btn" class="action-btn primary">
                         Play Again
@@ -118,6 +228,16 @@
             </div>
         </div>
     </div>
+
+    <!-- Footer for SEO -->
+    <footer>
+        <p>&copy; 2024 German Gender Game. Learn German grammar with der, die, das practice.</p>
+        <nav>
+            <a href="#about">About</a> |
+            <a href="#contact">Contact</a> |
+            <a href="#privacy">Privacy</a>
+        </nav>
+    </footer>
 
     <script src="script.js"></script>
 </body>

@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://your-site.netlify.app/sitemap.xml
+
+# Block crawling of admin areas (if any in future)
+Disallow: /admin/
+Disallow: /*.json$
+
+# Allow all content for SEO
+Allow: /index.html
+Allow: /style.css
+Allow: /script.js
+Allow: /manifest.json 
