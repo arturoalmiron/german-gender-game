@@ -71,16 +71,16 @@ const germanNouns = {
     home: [
         { german: 'Haus', english: 'house', gender: 'das', emoji: '🏠' },
         { german: 'Tür', english: 'door', gender: 'die', emoji: '🚪' },
-        { german: 'Fenster', english: 'window', gender: 'das', emoji: '🪟' },
+        { german: 'Fenster', english: 'window', gender: 'das', emoji: '🔲' },
         { german: 'Stuhl', english: 'chair', gender: 'der', emoji: '🪑' },
-        { german: 'Tisch', english: 'table', gender: 'der', emoji: '🪑' },
+        { german: 'Tisch', english: 'table', gender: 'der', emoji: '🔳' },
         { german: 'Bett', english: 'bed', gender: 'das', emoji: '🛏️' },
         { german: 'Küche', english: 'kitchen', gender: 'die', emoji: '🍳' },
         { german: 'Badezimmer', english: 'bathroom', gender: 'das', emoji: '🛁' },
         { german: 'Wohnzimmer', english: 'living room', gender: 'das', emoji: '🛋️' },
         { german: 'Schlafzimmer', english: 'bedroom', gender: 'das', emoji: '🛏️' },
         { german: 'Lampe', english: 'lamp', gender: 'die', emoji: '💡' },
-        { german: 'Spiegel', english: 'mirror', gender: 'der', emoji: '🪞' },
+        { german: 'Spiegel', english: 'mirror', gender: 'der', emoji: '🔍' },
         { german: 'Kühlschrank', english: 'refrigerator', gender: 'der', emoji: '❄️' },
         { german: 'Ofen', english: 'oven', gender: 'der', emoji: '🔥' },
         { german: 'Sofa', english: 'sofa', gender: 'das', emoji: '🛋️' }
@@ -127,6 +127,8 @@ let currentQuestions = [];
 let currentQuestionIndex = 0;
 let score = 0;
 let totalQuestions = 10;
+let isMainMenuDemo = true;
+let demoWord = null;
 
 // DOM elements
 const screens = {
@@ -151,11 +153,16 @@ const elements = {
     finalScore: document.getElementById('final-score'),
     scoreMessage: document.getElementById('score-message'),
     playAgainBtn: document.getElementById('play-again-btn'),
-    mainMenuBtn: document.getElementById('main-menu-btn')
+    mainMenuBtn: document.getElementById('main-menu-btn'),
+    gameMainMenuBtn: document.getElementById('game-main-menu-btn'),
+    gamePlayAgainBtn: document.getElementById('game-play-again-btn')
 };
 
 // Initialize the game
 function init() {
+    // Show random demo word on main menu
+    showRandomDemoWord();
+
     // Add event listeners for category buttons
     elements.categoryButtons.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -168,7 +175,12 @@ function init() {
     elements.genderButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             const selectedGender = btn.dataset.gender;
-            handleAnswer(selectedGender);
+            if (isMainMenuDemo) {
+                // Start "All" category game when clicking demo
+                startGame('all');
+            } else {
+                handleAnswer(selectedGender);
+            }
         });
     });
 
@@ -179,6 +191,17 @@ function init() {
 
     elements.mainMenuBtn.addEventListener('click', () => {
         showScreen('mainMenu');
+        showRandomDemoWord();
+    });
+
+    // Add event listeners for game navigation buttons
+    elements.gameMainMenuBtn.addEventListener('click', () => {
+        showScreen('mainMenu');
+        showRandomDemoWord();
+    });
+
+    elements.gamePlayAgainBtn.addEventListener('click', () => {
+        startGame(currentCategory);
     });
 
     // Add click-away functionality for feedback popup
@@ -187,6 +210,51 @@ function init() {
             elements.feedback.classList.add('hidden');
         }
     });
+}
+
+// Function to display word image (emoji or actual image)
+function displayWordImage(word) {
+    const imageElement = elements.wordEmoji;
+
+    // Words that should use images instead of emojis
+    const imageWords = {
+        'Fenster': 'images/fenster.png',
+        'Tisch': 'images/tisch.png',
+        'Spiegel': 'images/spiegel.png',
+        'Kühlschrank': 'images/kuehlschrank.png',
+        'Ofen': 'images/ofen.png',
+        'Lampe': 'images/lampe.png'
+    };
+
+    if (imageWords[word.german]) {
+        // Use actual image
+        imageElement.innerHTML = `<img src="${imageWords[word.german]}" alt="${word.german}" class="word-image-file">`;
+    } else {
+        // Use emoji
+        imageElement.innerHTML = word.emoji;
+    }
+}
+
+// Show random demo word on main menu
+function showRandomDemoWord() {
+    isMainMenuDemo = true;
+    const allWords = getAllNouns();
+    demoWord = allWords[Math.floor(Math.random() * allWords.length)];
+
+    displayWordImage(demoWord);
+    elements.wordName.textContent = demoWord.german;
+    elements.wordTranslation.textContent = demoWord.english;
+
+    // Reset demo display
+    elements.genderButtons.forEach(btn => {
+        btn.classList.remove('correct', 'incorrect', 'disabled');
+    });
+    elements.feedback.classList.add('hidden');
+
+    // Show placeholder progress for demo
+    elements.progressFill.style.width = '10%';
+    elements.currentQuestion.textContent = '1';
+    elements.currentScore.textContent = '0';
 }
 
 // Screen management
@@ -199,6 +267,7 @@ function showScreen(screenName) {
 
 // Start a new game
 function startGame(category) {
+    isMainMenuDemo = false;
     currentCategory = category;
     currentQuestionIndex = 0;
     score = 0;
@@ -248,7 +317,7 @@ function displayQuestion() {
     elements.currentScore.textContent = score;
 
     // Update word display
-    elements.wordEmoji.textContent = currentWord.emoji;
+    displayWordImage(currentWord);
     elements.wordName.textContent = currentWord.german;
     elements.wordTranslation.textContent = currentWord.english;
 

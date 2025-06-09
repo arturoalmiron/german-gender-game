@@ -245,6 +245,15 @@ footer a:hover {
     display: block;
 }
 
+.word-image-file {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 8px;
+}
+
 #word-name {
     font-size: 2.2rem;
     font-weight: 700;
@@ -312,6 +321,41 @@ footer a:hover {
     color: #666;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+}
+
+/* Game Navigation Buttons */
+.game-navigation {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.nav-btn {
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 100px;
+}
+
+.nav-btn.primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.nav-btn.secondary {
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.nav-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 @keyframes pulse {
