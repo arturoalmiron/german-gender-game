@@ -134,7 +134,8 @@ let demoWord = null;
 const screens = {
     mainMenu: document.getElementById('main-menu'),
     game: document.getElementById('game-screen'),
-    results: document.getElementById('results-screen')
+    results: document.getElementById('results-screen'),
+    practice: document.getElementById('practice-screen')
 };
 
 const elements = {
@@ -155,7 +156,10 @@ const elements = {
     playAgainBtn: document.getElementById('play-again-btn'),
     mainMenuBtn: document.getElementById('main-menu-btn'),
     gameMainMenuBtn: document.getElementById('game-main-menu-btn'),
-    gamePlayAgainBtn: document.getElementById('game-play-again-btn')
+    gamePlayAgainBtn: document.getElementById('game-play-again-btn'),
+    practiceWordsBtn: document.getElementById('practice-words-btn'),
+    practiceMainMenuBtn: document.getElementById('practice-main-menu-btn'),
+    practiceCategories: document.getElementById('practice-categories')
 };
 
 // Initialize the game
@@ -202,6 +206,16 @@ function init() {
 
     elements.gamePlayAgainBtn.addEventListener('click', () => {
         startGame(currentCategory);
+    });
+
+    // Add event listeners for practice screen
+    elements.practiceWordsBtn.addEventListener('click', () => {
+        showPracticeScreen();
+    });
+
+    elements.practiceMainMenuBtn.addEventListener('click', () => {
+        showScreen('mainMenu');
+        showRandomDemoWord();
     });
 
     // Add click-away functionality for feedback popup
@@ -404,6 +418,114 @@ function endGame() {
 
     elements.scoreMessage.textContent = message;
     showScreen('results');
+}
+
+// Show practice screen with all words
+function showPracticeScreen() {
+    showScreen('practice');
+    populatePracticeWords();
+}
+
+// Populate practice words by category
+function populatePracticeWords() {
+    const categoryIcons = {
+        food: '🍕',
+        technology: '💻',
+        animals: '🐕',
+        transport: '🚗',
+        home: '🏠',
+        nature: '🌳',
+        clothing: '👕'
+    };
+
+    const categoryNames = {
+        food: 'Food & Drinks',
+        technology: 'Technology',
+        animals: 'Animals',
+        transport: 'Transportation',
+        home: 'Home & Household',
+        nature: 'Nature',
+        clothing: 'Clothing'
+    };
+
+    let html = '';
+
+    Object.keys(germanNouns).forEach(categoryKey => {
+        const words = germanNouns[categoryKey];
+        const icon = categoryIcons[categoryKey];
+        const name = categoryNames[categoryKey];
+
+        html += `
+            <div class="practice-category">
+                <h3>${icon} ${name}</h3>
+                <div class="practice-word-list">
+        `;
+
+        words.forEach(word => {
+            const imageWords = {
+                'Fenster': 'images/fenster.png',
+                'Tisch': 'images/tisch.png',
+                'Spiegel': 'images/spiegel.png',
+                'Kühlschrank': 'images/kuehlschrank.png',
+                'Ofen': 'images/ofen.png',
+                'Lampe': 'images/lampe.png'
+            };
+
+            const imageDisplay = imageWords[word.german]
+                ? `<img src="${imageWords[word.german]}" alt="${word.german}" class="word-image-small">`
+                : `<span class="word-emoji-small">${word.emoji}</span>`;
+
+            html += `
+                <div class="practice-word-item">
+                    <div class="word-info">
+                        ${imageDisplay}
+                        <div class="word-text">
+                            <span class="word-article ${word.gender}">${word.gender}</span>
+                            <span class="word-german">${word.german}</span>
+                        </div>
+                        <span class="word-english">${word.english}</span>
+                    </div>
+                    <button class="audio-btn" onclick="playAudio('${word.german}')" aria-label="Play pronunciation of ${word.german}">
+                        🔊
+                    </button>
+                </div>
+            `;
+        });
+
+        html += `
+                </div>
+            </div>
+        `;
+    });
+
+    elements.practiceCategories.innerHTML = html;
+}
+
+// Audio functionality (placeholder for now)
+function playAudio(germanWord) {
+    const audioBtn = event.target;
+
+    // Add playing state
+    audioBtn.classList.add('playing');
+
+    // For now, use browser's speech synthesis (Text-to-Speech)
+    if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(germanWord);
+        utterance.lang = 'de-DE'; // German language
+        utterance.rate = 0.8; // Slightly slower for learning
+
+        utterance.onend = () => {
+            audioBtn.classList.remove('playing');
+        };
+
+        speechSynthesis.speak(utterance);
+    } else {
+        // Fallback - just show the word was "played"
+        setTimeout(() => {
+            audioBtn.classList.remove('playing');
+            alert(`Pronunciation: ${germanWord} (Audio not supported in this browser)`);
+        }, 1000);
+    }
 }
 
 // Initialize the game when the page loads
