@@ -159,7 +159,8 @@ const elements = {
     gamePlayAgainBtn: document.getElementById('game-play-again-btn'),
     practiceWordsBtn: document.getElementById('practice-words-btn'),
     practiceMainMenuBtn: document.getElementById('practice-main-menu-btn'),
-    practiceCategories: document.getElementById('practice-categories')
+    practiceCategories: document.getElementById('practice-categories'),
+    gameAudioBtn: document.getElementById('game-audio-btn')
 };
 
 // Initialize the game
@@ -180,8 +181,8 @@ function init() {
         btn.addEventListener('click', () => {
             const selectedGender = btn.dataset.gender;
             if (isMainMenuDemo) {
-                // Start "All" category game when clicking demo
-                startGame('all');
+                // Handle demo answer and start game from question 2
+                handleDemoAnswer(selectedGender);
             } else {
                 handleAnswer(selectedGender);
             }
@@ -216,6 +217,15 @@ function init() {
     elements.practiceMainMenuBtn.addEventListener('click', () => {
         showScreen('mainMenu');
         showRandomDemoWord();
+    });
+
+    // Add event listener for game audio button
+    elements.gameAudioBtn.addEventListener('click', () => {
+        if (isMainMenuDemo && demoWord) {
+            playGameAudio(demoWord.german);
+        } else if (currentQuestions[currentQuestionIndex]) {
+            playGameAudio(currentQuestions[currentQuestionIndex].german);
+        }
     });
 
     // Add click-away functionality for feedback popup
@@ -524,6 +534,77 @@ function playAudio(germanWord) {
         setTimeout(() => {
             audioBtn.classList.remove('playing');
             alert(`Pronunciation: ${germanWord} (Audio not supported in this browser)`);
+        }, 1000);
+    }
+}
+
+// Handle demo answer and transition to real game
+function handleDemoAnswer(selectedGender) {
+    const correctGender = demoWord.gender;
+    const isCorrect = selectedGender === correctGender;
+
+    // Disable all buttons during feedback
+    elements.genderButtons.forEach(btn => {
+        btn.classList.add('disabled');
+    });
+
+    // Show visual feedback on buttons
+    elements.genderButtons.forEach(btn => {
+        const btnGender = btn.dataset.gender;
+        if (btnGender === correctGender) {
+            btn.classList.add('correct');
+        } else if (btnGender === selectedGender && !isCorrect) {
+            btn.classList.add('incorrect');
+        }
+    });
+
+    // Show feedback modal
+    showFeedback(isCorrect, correctGender, demoWord.german);
+
+    // Start real game after feedback, with demo question counting as question 1
+    setTimeout(() => {
+        startGameFromDemo('all', isCorrect, demoWord);
+    }, 2000);
+}
+
+// Start game from demo (question 2)
+function startGameFromDemo(category, demoWasCorrect, demoWordUsed) {
+    isMainMenuDemo = false;
+    currentCategory = category;
+    currentQuestionIndex = 1; // Start from question 2
+    score = demoWasCorrect ? 1 : 0; // Count demo result
+
+    // Get questions for the category
+    currentQuestions = getAllNouns();
+    shuffleArray(currentQuestions);
+
+    // Remove the demo word from questions to avoid repetition
+    currentQuestions = currentQuestions.filter(word => word.german !== demoWordUsed.german);
+    currentQuestions = currentQuestions.slice(0, totalQuestions - 1); // Take 9 more words
+    currentQuestions.unshift(demoWordUsed); // Put demo word as first question (already answered)
+
+    showScreen('game');
+    displayQuestion();
+}
+
+// Game audio functionality
+function playGameAudio(germanWord) {
+    const audioBtn = elements.gameAudioBtn;
+    audioBtn.classList.add('playing');
+
+    if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(germanWord);
+        utterance.lang = 'de-DE';
+        utterance.rate = 0.8;
+
+        utterance.onend = () => {
+            audioBtn.classList.remove('playing');
+        };
+
+        speechSynthesis.speak(utterance);
+    } else {
+        setTimeout(() => {
+            audioBtn.classList.remove('playing');
         }, 1000);
     }
 }
